@@ -12,6 +12,20 @@
             <q-space></q-space>
 
             <q-select
+              label="Order Status"
+              behavior='menu'
+              class='q-mr-md text-brown-6'
+              dense
+              flat
+              v-model='statusSelect'
+              :options='statusOptions'
+              emit-value
+            >
+              <template v-slot:append>
+                <q-icon name='view_list'/>
+              </template>
+            </q-select>
+            <q-select
               behavior='menu'
               class='q-mr-md text-brown-6'
               dense
@@ -27,14 +41,14 @@
 
             <div>
               <q-badge color="brown-6">
-                Orders on: {{ date }}
+                Orders on: {{ day }}
               </q-badge>
             </div>
             <div class="q-pa-sm">
               <q-btn icon="event" round>
                 <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
                   <div class="q-gutter-xs row items-start">
-                    <q-date v-model="date" mask="YYYY-MM-DD" color="primary"/>
+                    <q-date v-model="day" mask="YYYY-MM-DD" color="primary"/>
                   </div>
                 </q-popup-proxy>
               </q-btn>
@@ -54,6 +68,15 @@
             </q-input>
 
             <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
+              <q-btn
+                style="min-width: 50px"
+                rounded
+                color="primary"
+                text-color="brown-6"
+                @click="report"
+              >{{ $t('admin_reports') }}
+              </q-btn>
+
               <q-btn
                 class='logout'
                 @click='Logout'
@@ -96,6 +119,21 @@ const optionsOf = [{
 }
 ]
 
+const selectOptionsOf = [{
+  label: 'All',
+  value: 'All'
+}, {
+  label: 'Preparing',
+  value: 'Preparing'
+}, {
+  label: 'Ready To Go',
+  value: 'Ready To Go'
+}, {
+  label: 'Declined',
+  value: 'Declined'
+}
+]
+
 export default defineComponent({
   name: 'ManagerPage',
   props: ['order', 'uuid'],
@@ -110,13 +148,17 @@ export default defineComponent({
     const search = ref('')
     const select = ref()
     const options = ref(optionsOf)
-    // const filter = {
-    //   search: '',
-    //   date: ''
-    // }
-    const date = ref('')
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    const statusSelect = ref()
+    const statusOptions = ref(selectOptionsOf)
+
+    const day = ref('')
+
+    const report = () => {
+      void router.push('/report_page')
+    }
+
+    // eslint-disable-next-line
     const allOrders = computed(() => store.state.allOrders)
 
     onMounted(() => {
@@ -131,34 +173,65 @@ export default defineComponent({
     })
 
     const filteredALLOrders = computed(() => {
-      function filterByShift () {
-        if (select.value === undefined) {
-          // eslint-disable-next-line
-          return allOrders.value
-        }
-        if (select.value === 'All') {
+      function filteredByShift () {
+        if (select.value === undefined || select.value === 'All') {
           // eslint-disable-next-line
           return allOrders.value
         } else {
           // eslint-disable-next-line
-          return allOrders.value.filter((product: { date: string }) => product.date <= select.value)
+          const ordersFilter = allOrders.value.reduce((memo: any[], order: any) => {
+            // eslint-disable-next-line
+            const filteredOrders = order.user_orders.filter(({ date }: { date: string }) => {
+              // eslint-disable-next-line
+              const dateObj = new Date(date)
+              // eslint-disable-next-line
+              console.log(date, dateObj)
+              return Math.ceil((dateObj.getHours() + 1) / 8) === +select.value
+            })
+
+            debugger
+            // eslint-disable-next-line
+            filteredOrders.length && memo.push({ ...order, ...{ user_orders: filteredOrders } })
+            // eslint-disable-next-line
+            return memo
+          }, [])
+          // eslint-disable-next-line
+          return ordersFilter
         }
       }
 
-      filterByShift()
-
       function filterBySearchInput () {
         // eslint-disable-next-line
-        return filterByShift().filter((user: { name: string }) => user.name.toLowerCase().includes(search.value.toLowerCase()))
+        if (search.value) {
+          // eslint-disable-next-line
+          return filteredByShift().filter((user: { name: string }) => user?.name?.toLowerCase()?.includes(search.value.toLowerCase()))
+        }
+        // eslint-disable-next-line
+        return filteredByShift()
       }
 
-      filterBySearchInput()
+      function filteredByStatus () {
+        if (statusSelect.value === undefined || statusSelect.value === 'All') {
+          // eslint-disable-next-line
+          return filterBySearchInput()
+        } else {
+          // eslint-disable-next-line
+          return filterBySearchInput().reduce((memo: any[], order: any) => {
+            // eslint-disable-next-line
+            const filtered = order.user_orders.filter(({ status }: { status: string }) => status === statusSelect.value)
+            // eslint-disable-next-line
+            filtered.length && memo.push({ ...order, ...{ user_orders: filtered } })
+            // eslint-disable-next-line
+            return memo
+          }, [])
+        }
+      }
       // eslint-disable-next-line
-      return filterBySearchInput()
+      return filteredByStatus()
     })
 
     const Logout = () => {
-      void store.dispatch('manager/logout').then(() => {
+      void store.dispatch('admin/logout').then(() => {
         void router.push('/')
         $q.notify({
           position: 'top',
@@ -174,8 +247,11 @@ export default defineComponent({
       select,
       options,
       allOrders,
+      report,
       Logout,
-      date
+      day,
+      statusSelect,
+      statusOptions
     }
   }
 })
