@@ -166,7 +166,7 @@ export default defineComponent({
           return allOrders.value
         } else {
           // eslint-disable-next-line
-          const ordersFilter = allOrders.value.reduce((memo: any[], order: any) => {
+          const ordersShiftFilter = allOrders.value.reduce((memo: any[], order: any) => {
             // eslint-disable-next-line
             const filteredOrders = order.user_orders.filter(({ date }: { date: string }) => {
               // eslint-disable-next-line
@@ -181,7 +181,32 @@ export default defineComponent({
             return memo
           }, [])
           // eslint-disable-next-line
-          return ordersFilter
+          return ordersShiftFilter
+        }
+      }
+
+      function filteredByDay () {
+        if (!day.value) {
+          // eslint-disable-next-line
+          return filteredByShift()
+        } else {
+          // eslint-disable-next-line
+          const ordersDayFilter = filteredByShift().reduce((memo: any[], order: any) => {
+            // eslint-disable-next-line
+            const filteredOrders = order.user_orders.filter(({ date }: { date: string }) => {
+              // eslint-disable-next-line
+              const dateObj = new Date(date)
+              // eslint-disable-next-line
+              const result = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0') + '-' + dateObj.getDate()
+              return result === day.value
+            })
+            // eslint-disable-next-line
+            filteredOrders.length && memo.push({ ...order, ...{ user_orders: filteredOrders } })
+            // eslint-disable-next-line
+            return memo
+          }, [])
+          // eslint-disable-next-line
+          return ordersDayFilter
         }
       }
 
@@ -189,10 +214,10 @@ export default defineComponent({
         // eslint-disable-next-line
         if (search.value) {
           // eslint-disable-next-line
-          return filteredByShift().filter((user: { name: string }) => user?.name?.toLowerCase()?.includes(search.value.toLowerCase()))
+          return filteredByDay().filter((user: { name: string }) => user?.name?.toLowerCase()?.includes(search.value.toLowerCase()))
         }
         // eslint-disable-next-line
-        return filteredByShift()
+        return filteredByDay()
       }
 
       function filteredByStatus () {
