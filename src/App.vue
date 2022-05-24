@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view  class="window-width"/>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'

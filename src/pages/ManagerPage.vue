@@ -41,7 +41,7 @@
 
             <div>
               <q-badge color="brown-6">
-                Orders on: {{ day }}
+                {{ $t('orders_on') }}: {{ day }}
               </q-badge>
             </div>
             <div class="q-pa-sm">
@@ -68,15 +68,6 @@
             </q-input>
 
             <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
-              <q-btn
-                style="min-width: 50px"
-                rounded
-                color="primary"
-                text-color="brown-6"
-                @click="report"
-              >{{ $t('admin_reports') }}
-              </q-btn>
-
               <q-btn
                 class='logout'
                 @click='Logout'
@@ -154,10 +145,6 @@ export default defineComponent({
 
     const day = ref('')
 
-    const report = () => {
-      void router.push('/report_page')
-    }
-
     // eslint-disable-next-line
     const allOrders = computed(() => store.state.allOrders)
 
@@ -188,8 +175,6 @@ export default defineComponent({
               console.log(date, dateObj)
               return Math.ceil((dateObj.getHours() + 1) / 8) === +select.value
             })
-
-            debugger
             // eslint-disable-next-line
             filteredOrders.length && memo.push({ ...order, ...{ user_orders: filteredOrders } })
             // eslint-disable-next-line
@@ -231,7 +216,7 @@ export default defineComponent({
     })
 
     const Logout = () => {
-      void store.dispatch('admin/logout').then(() => {
+      void store.dispatch('manager/logout').then(() => {
         void router.push('/')
         $q.notify({
           position: 'top',
@@ -247,7 +232,6 @@ export default defineComponent({
       select,
       options,
       allOrders,
-      report,
       Logout,
       day,
       statusSelect,

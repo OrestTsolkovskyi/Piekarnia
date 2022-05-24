@@ -41,7 +41,7 @@
 
             <div>
               <q-badge color="brown-6">
-                Orders on: {{ day }}
+                {{ $t('orders_on') }}: {{ day }}
               </q-badge>
             </div>
             <div class="q-pa-sm">
@@ -142,7 +142,6 @@ export default defineComponent({
   setup () {
     const $q = useQuasar()
     const store = useStore()
-
     const router = useRouter()
 
     const search = ref('')
@@ -158,7 +157,7 @@ export default defineComponent({
       void router.push('/report_page')
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    // eslint-disable-next-line
     const allOrders = computed(() => store.state.allOrders)
 
     onMounted(() => {
@@ -188,8 +187,6 @@ export default defineComponent({
               console.log(date, dateObj)
               return Math.ceil((dateObj.getHours() + 1) / 8) === +select.value
             })
-
-            debugger
             // eslint-disable-next-line
             filteredOrders.length && memo.push({ ...order, ...{ user_orders: filteredOrders } })
             // eslint-disable-next-line
@@ -228,6 +225,25 @@ export default defineComponent({
       }
       // eslint-disable-next-line
         return filteredByStatus()
+
+      // function filteredByTime () {
+      //   if (statusSelect.value === undefined || statusSelect.value === 'All') {
+      //     // eslint-disable-next-line
+      //     return filteredByStatus()
+      //   } else {
+      //     // eslint-disable-next-line
+      //     return filteredByStatus().reduce((memo: any[], order: any) => {
+      //       // eslint-disable-next-line
+      //       const filtered = order.user_orders.filter(({ status }: { status: string }) => status === statusSelect.value)
+      //       // eslint-disable-next-line
+      //       filtered.length && memo.push({ ...order, ...{ user_orders: filtered } })
+      //       // eslint-disable-next-line
+      //       return memo
+      //     }, [])
+      //   }
+      // }
+      // // eslint-disable-next-line
+      // return filteredByTime()
     })
 
     const Logout = () => {

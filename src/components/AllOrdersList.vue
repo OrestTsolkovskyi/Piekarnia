@@ -1,11 +1,10 @@
 <template>
   <q-scroll-area
     class="absolute-center text-center orders_list q-pa-md no-wrap"
-    style="width: 45vh"
   >
-    <div>
+    <div style="position: center">
       <span class="text-brown-6 text-h4 q-pa-md">All Orders</span>
-      <q-card-section class="wrap">
+      <q-card-section class="no-wrap">
         <q-btn
           class="q-mb-md text-bold"
           color="brown-6"
@@ -57,9 +56,9 @@
               </q-card-section>
 
               <div class="q-pa-sm row" style="justify-content: space-between">
-                <p class="text-brown-6"><strong>Production Cost:</strong> {{ order.order_production_cost }}</p>
-                <p class="text-brown-6"><strong>Payed:</strong> {{ order.order_total }}</p>
-                <p class="text-brown-6"><strong>Pick up time:</strong> {{ order.date }}</p>
+                <p class="text-brown-6"><strong>{{ $t('production_cost') }}:</strong> {{ order.order_production_cost }}</p>
+                <p class="text-brown-6"><strong>{{ $t('payed') }}:</strong> {{ order.order_total }}</p>
+                <p class="text-brown-6"><strong>{{ $t('pick_up_time') }}:</strong> {{ order.date }}</p>
               </div>
               <q-card-actions class="q-mb-md" style="justify-content: space-evenly">
                 <q-checkbox
@@ -78,7 +77,7 @@
                 />
                 <q-btn
                   class="text-brown-6 text-bold"
-                  label="Decline Order"
+                  :label="$t('decline_btn')"
                   rounded
                   :disabled="order.status === 'Declined' || order.status === 'Ready To Go'"
                   @click="openDeclineDialog(user.user_uuid, order.order_uuid)"
@@ -91,11 +90,11 @@
             <q-card style="background-color: #ebc09f">
               <q-card-section class="row items-center">
                 <q-avatar icon="remove_shopping_cart" color="brown-6" text-color="white"/>
-                <span class="q-ml-sm text-h6 text-brown-6">Are you sure, you want to decline whole order?</span>
+                <span class="q-ml-sm text-h6 text-brown-6">{{ $t('declined_confirmation') }}</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn flat label="Cancel" color="brown-6" v-close-popup/>
+                <q-btn flat :label="$t('cancel_btn')" color="brown-6" v-close-popup/>
                 <q-btn round color="red-5" flat icon="delete"
                        @click="declineOrder(declineDialogDataUserUuid, declineDialogDataOrderUuid)" v-close-popup/>
               </q-card-actions>
@@ -106,11 +105,11 @@
             <q-card style="background-color: #ebc09f">
               <q-card-section class="row items-center">
                 <q-avatar icon="remove_shopping_cart" color="brown-6" text-color="white"/>
-                <span class="q-ml-sm text-h6 text-brown-6">Are you sure, you want to remove this order?</span>
+                <span class="q-ml-sm text-h6 text-brown-6">{{ $t('removing_confirmation') }}</span>
               </q-card-section>
 
               <q-card-actions align="right">
-                <q-btn flat label="Cancel" color="brown-6" v-close-popup/>
+                <q-btn flat :label="$t('cancel_btn')" color="brown-6" v-close-popup/>
                 <q-btn round color="red-5" flat icon="delete"
                        @click="removeOrderItem(removeDialogDataUserUuid, removeDialogDataOrderUuid, removeDialogDataProductUuid)"
                        v-close-popup/>
@@ -219,7 +218,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .orders_list {
   background-color: #ebc09f;
-  width: 40%;
+  width: 45vh;
   height: 90%;
   min-width: 40%;
   min-height: 90%;

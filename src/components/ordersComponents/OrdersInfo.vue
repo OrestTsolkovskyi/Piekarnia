@@ -12,9 +12,9 @@
           align="center"
           class="text-brown-6 q-py-md"
         >
-          <q-tab :ripple="{ color: 'orange' }" name="Orders" icon="receipt_long" label="Orders"/>
+          <q-tab :ripple="{ color: 'orange' }" name="Orders" icon="receipt_long" :label="$t('orders')"/>
           <br>
-          <q-tab :ripple="{ color: 'orange' }" name="History" icon="history" label="History"/>
+          <q-tab :ripple="{ color: 'orange' }" name="History" icon="history" :label="$t('history')"/>
         </q-tabs>
       </q-card-actions>
 

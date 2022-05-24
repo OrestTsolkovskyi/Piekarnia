@@ -2,7 +2,7 @@
   <div style="width: 45%">
     <div class="q-mb-sm">
       <q-badge style="background-color: #ebc09f">
-        <span class="text-h6 text-brown-6 text-bold">Pick up time: {{ modelValue }}</span>
+        <span class="text-h6 text-brown-6 text-bold">{{ $t('pick_up_time') }}: {{ modelValue }}</span>
       </q-badge>
     </div>
     <q-btn

@@ -91,8 +91,8 @@ export default store(function (/* { ssrContext } */) {
         // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,no-return-assign
         state.cart.forEach(item => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          pCost += item.productionCost * item.quantity
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
+          pCost += Math.round(item.productionCost * item.quantity)
         })
         return pCost
       }

@@ -14,7 +14,7 @@
               @click='Logout'
               rounded
               push
-            >Logout
+            >{{ $t('logout_btn') }}
             </q-btn>
           </q-toolbar>
         </q-header>

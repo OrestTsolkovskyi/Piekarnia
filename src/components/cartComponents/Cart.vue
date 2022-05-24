@@ -138,7 +138,7 @@ export default defineComponent({
       void swal('Thank you', 'You order placed successfully').then(
         clearCart
       )
-      axios.post('api/orders', {
+      axios.post('api/addOrders', {
         order_uuid: orderUuid(),
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         date: date.value,
