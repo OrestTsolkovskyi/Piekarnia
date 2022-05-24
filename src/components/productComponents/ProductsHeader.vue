@@ -1,7 +1,7 @@
 <template>
   <q-toolbar style="min-width: fit-content">
     <q-toolbar-title @click="goTo" style="min-width: 27%">
-      Products
+      Piekarnia
     </q-toolbar-title>
 
     <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
