@@ -11,20 +11,20 @@
 
             <q-space></q-space>
 
-<!--            <q-select-->
-<!--              label="Order Status"-->
-<!--              behavior='menu'-->
-<!--              class='q-mr-md text-brown-6'-->
-<!--              dense-->
-<!--              flat-->
-<!--              v-model='statusSelect'-->
-<!--              :options='statusOptions'-->
-<!--              emit-value-->
-<!--            >-->
-<!--              <template v-slot:append>-->
-<!--                <q-icon name='view_list'/>-->
-<!--              </template>-->
-<!--            </q-select>-->
+            <q-select
+              label="Order Status"
+              behavior='menu'
+              class='q-mr-md text-brown-6'
+              dense
+              flat
+              v-model='statusSelect'
+              :options='statusOptions'
+              emit-value
+            >
+              <template v-slot:append>
+                <q-icon name='view_list'/>
+              </template>
+            </q-select>
             <q-select
               behavior='menu'
               class='q-mr-md text-brown-6'
@@ -41,14 +41,14 @@
 
             <div>
               <q-badge color="brown-6">
-                Orders on: {{ date }}
+                Orders on: {{ day }}
               </q-badge>
             </div>
             <div class="q-pa-sm">
               <q-btn icon="event" round>
                 <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
                   <div class="q-gutter-xs row items-start">
-                    <q-date v-model="date" mask="YYYY-MM-DD" color="primary"/>
+                    <q-date v-model="day" mask="YYYY-MM-DD" color="primary"/>
                   </div>
                 </q-popup-proxy>
               </q-btn>
@@ -119,20 +119,20 @@ const optionsOf = [{
 }
 ]
 
-// const selectOptionsOf = [{
-//   label: 'All',
-//   value: 'All'
-// }, {
-//   label: 'Preparing',
-//   value: 'Preparing'
-// }, {
-//   label: 'Ready To Go',
-//   value: 'Ready To Go'
-// }, {
-//   label: 'Declined',
-//   value: 'Declined'
-// }
-// ]
+const selectOptionsOf = [{
+  label: 'All',
+  value: 'All'
+}, {
+  label: 'Preparing',
+  value: 'Preparing'
+}, {
+  label: 'Ready To Go',
+  value: 'Ready To Go'
+}, {
+  label: 'Declined',
+  value: 'Declined'
+}
+]
 
 export default defineComponent({
   name: 'AdminPage',
@@ -149,13 +149,10 @@ export default defineComponent({
     const select = ref()
     const options = ref(optionsOf)
 
-    // const statusSelect = ref()
-    // const statusOptions = ref(selectOptionsOf)
-    // const filter = {
-    //   search: '',
-    //   date: ''
-    // }
-    const date = ref('')
+    const statusSelect = ref()
+    const statusOptions = ref(selectOptionsOf)
+
+    const day = ref('')
 
     const report = () => {
       void router.push('/report_page')
@@ -176,30 +173,61 @@ export default defineComponent({
     })
 
     const filteredALLOrders = computed(() => {
-      function filterByShift () {
-        if (select.value === undefined) {
+      function filteredByShift () {
+        if (select.value === undefined || select.value === 'All') {
           // eslint-disable-next-line
-          return allOrders.value
-        }
-        if (select.value === 'All') {
-          // eslint-disable-next-line
-          return allOrders.value
+            return allOrders.value
         } else {
           // eslint-disable-next-line
-          return allOrders.value.filter((product: { date: string }) => product.date <= select.value)
+            const ordersFilter = allOrders.value.reduce((memo: any[], order: any) => {
+            // eslint-disable-next-line
+            const filteredOrders = order.user_orders.filter(({ date }: { date: string }) => {
+              // eslint-disable-next-line
+              const dateObj = new Date(date)
+              // eslint-disable-next-line
+              console.log(date, dateObj)
+              return Math.ceil((dateObj.getHours() + 1) / 8) === +select.value
+            })
+
+            debugger
+            // eslint-disable-next-line
+            filteredOrders.length && memo.push({ ...order, ...{ user_orders: filteredOrders } })
+            // eslint-disable-next-line
+            return memo
+          }, [])
+          // eslint-disable-next-line
+          return ordersFilter
         }
       }
-
-      filterByShift()
 
       function filterBySearchInput () {
         // eslint-disable-next-line
-        return filterByShift().filter((user: { name: string }) => user.name.toLowerCase().includes(search.value.toLowerCase()))
+        if (search.value) {
+          // eslint-disable-next-line
+          return filteredByShift().filter((user: { name: string }) => user?.name?.toLowerCase()?.includes(search.value.toLowerCase()))
+        }
+        // eslint-disable-next-line
+        return filteredByShift()
       }
 
-      filterBySearchInput()
+      function filteredByStatus () {
+        if (statusSelect.value === undefined || statusSelect.value === 'All') {
+          // eslint-disable-next-line
+          return filterBySearchInput()
+        } else {
+          // eslint-disable-next-line
+          return filterBySearchInput().reduce((memo: any[], order: any) => {
+            // eslint-disable-next-line
+            const filtered = order.user_orders.filter(({ status }: { status: string }) => status === statusSelect.value)
+            // eslint-disable-next-line
+            filtered.length && memo.push({ ...order, ...{ user_orders: filtered } })
+            // eslint-disable-next-line
+            return memo
+          }, [])
+        }
+      }
       // eslint-disable-next-line
-      return filterBySearchInput()
+        return filteredByStatus()
     })
 
     const Logout = () => {
@@ -221,9 +249,9 @@ export default defineComponent({
       allOrders,
       report,
       Logout,
-      date
-      // statusSelect,
-      // statusOptions
+      day,
+      statusSelect,
+      statusOptions
     }
   }
 })
