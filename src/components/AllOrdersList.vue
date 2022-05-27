@@ -57,7 +57,7 @@
                 </div>
               </q-card-section>
 
-              <div class="q-pa-sm row" style="justify-content: space-between">
+              <div class="q-pa-sm row" style="justify-content: space-evenly">
                 <p class="text-brown-6"><strong>{{ $t('production_cost') }}:</strong> {{ order.order_production_cost }}</p>
                 <p class="text-brown-6"><strong>{{ $t('payed') }}:</strong> {{ order.order_total }}</p>
                 <p class="text-brown-6"><strong>{{ $t('pick_up_time') }}:</strong> {{ order.date }}</p>
@@ -149,7 +149,7 @@ export default defineComponent({
       // eslint-disable-next-line
       for (let i = 0; i < pValue.data.length; i++) {
         // eslint-disable-next-line
-        progress.value.set(pValue.data[i].user_uuid, pValue.data[i].declinedCount)
+        progress.value.set(pValue.data[i].user_uuid, pValue.data[i].declinedCount / 100)
       }
     }).catch(err => {
       return Promise.reject(err)
@@ -158,7 +158,7 @@ export default defineComponent({
     // eslint-disable-next-line
     const userOrdersStat = (user_uuid: string) => {
       const stat = progress.value.get(user_uuid)
-      return stat !== undefined ? stat.toFixed(2) + '%' : ''
+      return stat !== undefined ? (stat * 100).toFixed(2) + '%' : ''
     }
 
     const readyToGoBtn = ref('Preparing')
