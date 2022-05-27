@@ -23,12 +23,14 @@
                 {{ user.user_uuid }}
                 <br/>
                 <q-linear-progress
+                  :indeterminate="progress.get(user.user_uuid) === undefined"
                   rounded size="25px"
-                  :value="progress1"
+                  :value="progress.get(user.user_uuid) || 0"
                   color="light-green-6"
-                  track-color="deep-orange-12">
+                  track-color="deep-orange-12"
+                >
                   <div class="absolute-full flex flex-center">
-                    <q-badge color="white" text-color="light-green-6" :label="progressLabel1"/>
+                    <q-badge v-if="progress.get(user.user_uuid) !== undefined" color="white" text-color="light-green-6" :label="userOrdersStat(user.user_uuid)"/>
                   </div>
                 </q-linear-progress>
               </div>
@@ -129,8 +131,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useStore } from 'src/store'
+import axios from 'axios'
 
 export default defineComponent({
   name: 'AllOrdersList',
@@ -139,7 +142,24 @@ export default defineComponent({
   setup () {
     const store = useStore()
 
-    const progress1 = ref(0.95)
+    const progress = ref<Map<string, number>>(new Map())
+
+    // eslint-disable-next-line
+    axios.get('api/progressStatus').then(pValue => {
+      // eslint-disable-next-line
+      for (let i = 0; i < pValue.data.length; i++) {
+        // eslint-disable-next-line
+        progress.value.set(pValue.data[i].user_uuid, pValue.data[i].declinedCount)
+      }
+    }).catch(err => {
+      return Promise.reject(err)
+    })
+    console.log(progress.value)
+    // eslint-disable-next-line
+    const userOrdersStat = (user_uuid: string) => {
+      const stat = progress.value.get(user_uuid)
+      return stat !== undefined ? stat.toFixed(2) + '%' : ''
+    }
 
     const readyToGoBtn = ref('Preparing')
 
@@ -191,8 +211,9 @@ export default defineComponent({
       })
     }
     return {
-      progress1,
-      progressLabel1: computed(() => (progress1.value * 100).toFixed(2) + '%'),
+      // progressData,
+      progress,
+      userOrdersStat,
       remove,
       expanded: ref(false),
       expandedInfo: ref(false),

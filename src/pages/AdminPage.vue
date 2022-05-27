@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page class="page-bg bg-image">
         <q-header elevated class="text-brown-6">
-          <q-toolbar style="flex-flow: row wrap">
+          <q-toolbar>
 
             <q-toolbar-title style="min-width: fit-content">
               Piekarnia
@@ -11,65 +11,66 @@
 
             <q-space></q-space>
 
-            <q-select
-              hide-dropdown-icon
-              label="Order Status"
-              behavior='menu'
-              class='q-mr-md text-brown-6'
-              dense
-              flat
-              v-model='statusSelect'
-              :options='statusOptions'
-              emit-value
-            >
-              <template v-slot:append>
-                <q-icon name='view_list'/>
-              </template>
-            </q-select>
-            <q-select
-              hide-dropdown-icon
-              behavior='menu'
-              class='q-mr-md text-brown-6'
-              dense
-              flat
-              v-model='select'
-              :options='options'
-              emit-value
-            >
-              <template v-slot:append>
-                <q-icon name='av_timer'/>
-              </template>
-            </q-select>
+              <q-select
+                hide-dropdown-icon
+                label="Order Status"
+                behavior='menu'
+                class='q-mr-md text-brown-6'
+                dense
+                flat
+                v-model='statusSelect'
+                :options='statusOptions'
+                emit-value
+              >
+                <template v-slot:append>
+                  <q-icon name='view_list'/>
+                </template>
+              </q-select>
+              <q-select
+                hide-dropdown-icon
+                behavior='menu'
+                class='q-mr-md text-brown-6'
+                dense
+                flat
+                v-model='select'
+                :options='options'
+                emit-value
+              >
+                <template v-slot:append>
+                  <q-icon name='av_timer'/>
+                </template>
+              </q-select>
 
-            <div>
-              <q-badge color="brown-6">
-                {{ $t('orders_on') }}: {{ day }}
-              </q-badge>
-            </div>
-            <div class="q-pa-sm q-pr-md">
-              <q-btn icon="event" round>
-                <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
-                  <div class="q-gutter-xs row items-start">
-                    <q-date v-model="day" mask="YYYY-MM-DD" color="primary"/>
-                  </div>
-                </q-popup-proxy>
-              </q-btn>
-            </div>
+              <div>
+                <q-badge color="brown-6" class="q-mr-sm">
+                  {{ $t('orders_on') }}: {{ day }}
+                </q-badge>
+              </div>
+              <div class="q-pa-sm q-pr-md">
+                <q-btn icon="event" round>
+                  <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
+                    <div class="q-gutter-xs row items-start">
+                      <q-date v-model="day" mask="YYYY-MM-DD" color="primary"/>
+                    </div>
+                  </q-popup-proxy>
+                </q-btn>
+              </div>
 
-            <q-input
-              class='search'
-              dense
-              :label="$t('find_select') "
-              type='search'
-              v-model='search'
-            >
-              <template v-slot:append>
-                <q-icon name='search'/>
-              </template>
-            </q-input>
+              <q-input
+                class='search'
+                dense
+                :label="$t('find_select') "
+                type='search'
+                v-model='search'
+              >
+                <template v-slot:append>
+                  <q-icon name='search'/>
+                </template>
+              </q-input>
 
             <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
               <q-btn
+                style="min-width: 5%"
                 rounded
                 color="primary"
                 text-color="brown-6"
@@ -78,6 +79,9 @@
               </q-btn>
 
               <q-btn
+                style="min-width: 5%"
+                text-color="brown-6"
+                color="primary"
                 class='logout'
                 @click='Logout'
                 rounded
@@ -182,8 +186,6 @@ export default defineComponent({
             const filteredOrders = order.user_orders.filter(({ date }: { date: string }) => {
               // eslint-disable-next-line
               const dateObj = new Date(date)
-              // eslint-disable-next-line
-              console.log(date, dateObj)
               return Math.ceil((dateObj.getHours() + 1) / 8) === +select.value
             })
             // eslint-disable-next-line

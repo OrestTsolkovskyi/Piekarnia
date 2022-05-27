@@ -11,11 +11,6 @@ import axios from 'src/plugins/axios.config'
 import user from 'src/store/modules/user'
 import admin from 'src/store/modules/admin'
 import manager from 'src/store/modules/manager'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-// import _ from 'lodash'
-// import example from './module-example'
-// import { ExampleStateInterface } from './module-example/state';
 
 /*
  * If not building with SSR mode, you can
@@ -92,9 +87,9 @@ export default store(function (/* { ssrContext } */) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,no-return-assign
         state.cart.forEach(item => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
-          pCost += Math.round(item.productionCost * item.quantity)
+          pCost += item.productionCost * item.quantity
         })
-        return pCost
+        return pCost.toFixed(2)
       }
     },
 
@@ -230,20 +225,6 @@ export default store(function (/* { ssrContext } */) {
             }
           }
         }
-        // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // // @ts-ignore
-        // // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        // state.cart = state.cart.filter(item => {
-        //   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        //   return item.product.uuid !== product.uuid
-        // })
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        // state.cart.splice({
-        //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        //   product,
-        //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        //   quantity
-        // })
       },
 
       DELETE_ITEM (state, product) {
@@ -278,15 +259,6 @@ export default store(function (/* { ssrContext } */) {
       },
 
       DECLINE_ORDER (state, { userUuid, orderUuid }) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        // const item = state.allOrders
-        //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //   // @ts-ignore
-        //   .find((_user) => _user === user).user_orders
-        //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //   // @ts-ignore
-        //   .find((item) => order === item)
-
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
@@ -310,11 +282,6 @@ export default store(function (/* { ssrContext } */) {
       },
 
       SET_STATUS (state, { user, order, status }) {
-        // const userIndex = state.allOrders.findIndex((_user) => _user === user)
-        // const orderIndex = state.allOrders[userIndex].user_orders.findIndex((order) => product === order)
-        //
-        // state.allOrders[userIndex].user_orders[orderIndex].status = status
-
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
         const item = state.allOrders
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
