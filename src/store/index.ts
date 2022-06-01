@@ -268,7 +268,7 @@ export default store(function (/* { ssrContext } */) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
         const orderIndex = state.allOrders[userIndex].user_orders.findIndex((order) => order.order_uuid === orderUuid)
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        state.allOrders[userIndex].user_orders[orderIndex].status = 'Declined'
+        state.allOrders[userIndex].user_orders[orderIndex].status = { 'en-US': 'Declined', pl: 'Anulowane' }
       },
 
       SET_ALL_ORDERS (state, allOrders) {

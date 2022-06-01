@@ -45,6 +45,7 @@
               v-model='statusSelect'
               :options='statusOptions'
               emit-value
+              hide-selected
             >
               <template v-slot:append>
                 <q-icon name='view_list'/>
@@ -108,36 +109,7 @@ import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
 import { useStore } from 'src/store'
 import AllOrdersList from 'components/AllOrdersList.vue'
-
-const optionsOf = [{
-  label: 'All',
-  value: 'All'
-}, {
-  label: '1',
-  value: '1'
-}, {
-  label: '2',
-  value: '2'
-}, {
-  label: '3',
-  value: '3'
-}
-]
-
-const selectOptionsOf = [{
-  label: 'All',
-  value: 'All'
-}, {
-  label: 'Preparing',
-  value: 'Preparing'
-}, {
-  label: 'Ready To Go',
-  value: 'Ready To Go'
-}, {
-  label: 'Declined',
-  value: 'Declined'
-}
-]
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'AdminPage',
@@ -145,14 +117,44 @@ export default defineComponent({
 
   components: { AllOrdersList },
   setup () {
+    // eslint-disable-next-line
+    const { t } = useI18n()
     const $q = useQuasar()
     const store = useStore()
     const router = useRouter()
 
     const search = ref('')
+
+    const optionsOf = [{
+      label: ref(t('All Shifts')),
+      value: 'All Shifts'
+    }, {
+      label: '1',
+      value: '1'
+    }, {
+      label: '2',
+      value: '2'
+    }, {
+      label: '3',
+      value: '3'
+    }
+    ]
     const select = ref()
     const options = ref(optionsOf)
 
+    const selectOptionsOf = [{
+      label: ref(t('All')),
+      value: 'All'
+    }, {
+      label: ref(t('Preparing')),
+      value: 'Preparing'
+    }, {
+      label: ref(t('Ready To Go')),
+      value: 'Ready To Go'
+    }, {
+      label: ref(t('Declined')),
+      value: 'Declined'
+    }]
     const statusSelect = ref()
     const statusOptions = ref(selectOptionsOf)
 
@@ -178,7 +180,7 @@ export default defineComponent({
 
     const filteredALLOrders = computed(() => {
       function filteredByShift () {
-        if (select.value === undefined || select.value === 'All') {
+        if (select.value === undefined || select.value === 'All Shift') {
           // eslint-disable-next-line
             return allOrders.value
         } else {
@@ -267,6 +269,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       filteredALLOrders,
       search,
       select,

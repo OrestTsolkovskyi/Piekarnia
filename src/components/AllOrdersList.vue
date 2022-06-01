@@ -66,7 +66,7 @@
                 <q-checkbox
                   left-label
                   class="text-brown-6 text-bold"
-                  :label="order.status"
+                  :label="$t(order.status)"
                   rounded
                   false-value="Preparing"
                   true-value="Ready To Go"

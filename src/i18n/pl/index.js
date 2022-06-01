@@ -72,5 +72,10 @@ export default {
   september: 'Wrzesień',
   october: 'Pażdziernik',
   november: 'Listopad',
-  december: 'Grudzień'
+  december: 'Grudzień',
+  'All Shifts': 'Wszystkie zmiany',
+  All: 'Wszystkie',
+  'Ready To Go': 'Gotowy Do Odboiru',
+  Preparing: 'Gotuje się',
+  Declined: 'Anolowano'
 }

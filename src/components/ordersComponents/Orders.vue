@@ -8,10 +8,10 @@
         :key='order.uuid'
       >
             <q-badge
-              :color="order.status === 'Preparing' ? 'red' || order.status === 'Declined' ? 'red' : 'green' : 'grey'"
+              :color="order.status === 'Preparing' ? 'red' : 'green' && order.status === 'Declined' ? 'grey' : 'green' || order.status === 'Ready to Go' ? 'green' : 'red'"
               rounded
               class="q-mr-md q-mb-sm"
-            >{{ order.status }}
+            >{{ $t(order.status) }}
             </q-badge>
         <p>{{ order.date }}</p>
         <q-card-section

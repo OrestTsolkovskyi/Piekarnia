@@ -72,5 +72,10 @@ export default {
   september: 'September',
   october: 'October',
   november: 'November',
-  december: 'December'
+  december: 'December',
+  'All Shifts': 'All Shifts',
+  All: 'All',
+  'Ready To Go': 'Ready To Go',
+  Preparing: 'Preparing',
+  Declined: 'Declined'
 }
