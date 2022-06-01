@@ -1,6 +1,6 @@
 <template>
   <footer elevated class="text-brown-6">
-    <div class="flex justify-center q-gutter-xl" >
+    <div class="flex justify-center q-gutter-xl no-wrap" >
       <div class="text-h5" @click="privacy = true">{{ $t('f_privacy_policy') }}</div>
       <q-dialog v-model="privacy">
         <q-card class="bg-primary">

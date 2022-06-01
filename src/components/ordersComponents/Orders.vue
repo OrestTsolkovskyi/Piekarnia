@@ -7,7 +7,12 @@
         v-for='order in userOrders'
         :key='order.uuid'
       >
-            <q-badge :color="order.status === 'Preparing' ? 'red' : 'green'" rounded class="q-mr-md q-mb-sm">{{ order.status }}</q-badge>
+            <q-badge
+              :color="order.status === 'Preparing' ? 'red' || order.status === 'Declined' ? 'red' : 'green' : 'grey'"
+              rounded
+              class="q-mr-md q-mb-sm"
+            >{{ order.status }}
+            </q-badge>
         <p>{{ order.date }}</p>
         <q-card-section
           horizontal
@@ -19,7 +24,7 @@
           :src='product.image'
           alt='img'
           width="64px" height="64px"
-          style="border-radius: 50%"
+          style="border-radius: 50%; min-width: 64px; min-height: 64px"
         >
         </q-img>
         <p class='product_name text-h5 q-pa-md'>{{ product.name }}</p>

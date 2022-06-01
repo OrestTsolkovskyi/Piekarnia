@@ -8,11 +8,12 @@
       <div class="text-h4 text-bold flex flex-center wrap">{{ $t('cart') }}</div>
     </q-card-section>
 
-    <q-card-section horizontal v-for="item in cart" :key="item.uuid">
+    <q-card-section horizontal v-for="item in cart" :key="item.uuid" class="info-section">
+         <div class="row cart_name_img">
           <q-img  class="q-pa-md" :src='item.image' width="64px" height="64px" style="border-radius: 50%"/>
             <p class=" q-pa-md flex flex-center text-h5 text-bold">{{ item.name }}</p>
-      <q-space/>
-      <div class="q-pa-sm">
+         </div>
+           <div class="q-pa-sm">
             <q-btn class="q-pa-md-sm" rounded @click="addItem(item)" icon="add"></q-btn>
             <span class="cart-quantity q-pa-md">{{ item.quantity }}</span>
             <q-btn class="q-pa-md-sm" rounded @click="removeItem(item)" icon="remove"></q-btn>
@@ -39,11 +40,11 @@
         <Summary :totalPrice="totalPrice"/>
       </q-card-section>
 
-      <q-card-actions class="q-pa-none">
+      <q-card-actions class="q-pa-none time_picker">
         <TimePicker v-model="modelValue"/>
       </q-card-actions>
 
-      <q-card-actions class="q-pa-sm" style="justify-content: space-between">
+      <q-card-actions class="q-pa-sm cart_actions" style="justify-content: space-between">
         <q-btn color="blue" rounded icon="receipt_long" @click="checkout">{{ $t('checkout_btn') }}</q-btn>
         <span class="subtotal flex flex-center text-h5 text-bold">{{ $t('subtotal') }}: {{ totalPrice + 10 }}</span>
         <q-btn color="red" rounded icon="delete_outline" @click="clearCart()">{{ $t('clear_cart_btn') }}</q-btn>
@@ -184,5 +185,33 @@ export default defineComponent({
   min-width: 40vh;
   min-height: 60vh;
   //max-height: 60%
+}
+
+.info-section {
+  justify-content: space-between;
+}
+
+.time_picker {
+  position: center;
+}
+@media (max-width: 450px) {
+  .info-section {
+    flex-flow: row wrap;
+    justify-content: center;
+    min-width: fit-content;
+  }
+
+  .cart_actions {
+    flex-flow: column wrap;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1200px) {
+  .cart_scroll {
+    min-width: 65vh;
+    width: 70%;
+    height: 45%;
+    min-height: 40vh;
+  }
 }
 </style>

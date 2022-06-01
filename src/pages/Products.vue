@@ -9,9 +9,9 @@
 
           <q-separator color="brown-6" style="height: 0.1rem"/>
 
-          <q-toolbar style="flex-flow: row wrap; justify-content: space-between"  class="q-py-none">
+          <q-toolbar style="flex-flow: row wrap; justify-content: space-evenly"  class="q-py-none">
 <!--          <div style='color: #ebc09f' class="q-py-sm">-->
-            <q-card style="background: #ecbf98; height: 4.5rem; min-width: 40%" flat>
+            <q-card style="background: #ecbf98; height: 4rem; min-width: 40%" flat>
               <q-card-section horizontal>
                 <q-card-section style="width: 300px">
               <q-select
@@ -51,8 +51,9 @@
             v-model="tab"
             dense
             align="center"
-            class="text-brown-6 q-py-sm"
-            style="min-width: fit-content"
+            class="text-brown-6 q-py-sm wrap"
+            shrink
+            stretch
           >
             <q-tab :ripple="{ color: 'brown-6' }" name="All" :label="$t('tab_ALL')"/>
             <q-tab :ripple="{ color: 'brown-6' }" name="Best sellers" :label="$t('tab_Bestsellers')"/>
@@ -243,11 +244,9 @@ export default defineComponent({
 
     return {
       bestsellers,
-      // productDetails,
       showProduct: ref(false),
       tab: ref('All'),
       cart: ref(false),
-      // fullSize: ref(false),
       select,
       search,
       filteredBestsellers,

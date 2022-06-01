@@ -1,6 +1,6 @@
 <template>
   <q-toolbar style="min-width: fit-content">
-    <q-toolbar-title @click="goTo" style="min-width: 27%">
+    <q-toolbar-title @click="goTo" style="min-width: fit-content">
       Piekarnia
     </q-toolbar-title>
 
@@ -73,22 +73,6 @@ export default defineComponent({
     const goTo = () =>
       router.push('/products')
 
-    // const addItem = () => {
-    //   void store.dispatch('addItem', {
-    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    //     product: props.product,
-    //     quantity: 1
-    //   })
-    // }
-    //
-    // const removeItem = () => {
-    //   void store.dispatch('removeItem', {
-    //     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    //     product: props.product,
-    //     quantity: 1
-    //   })
-    // }
-
     onMounted(() => {
       store.dispatch('getOrders', null, { root: true })
         .catch((err) => {
@@ -110,8 +94,6 @@ export default defineComponent({
       })
     }
     return {
-      // addItem,
-      // removeItem,
       count,
       getUser,
       goTo,

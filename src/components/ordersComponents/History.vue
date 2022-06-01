@@ -1,24 +1,5 @@
 <template>
-<!--  <div v-if="history.length > 0">-->
-<!--    <h5 class="flex flex-center text-brown-6">History</h5>-->
-<!--  </div>-->
   <EmptyHistory/>
-<!--      <div class="flex flex-center">-->
-<!--        <div class="lines"></div>-->
-<!--      </div>-->
-<!--  <div class="wrapper">-->
-<!--    <div class="progress">-->
-<!--      <div class="progress_line-bg">-->
-<!--        <div class="progress_line" id="progress_line"></div>-->
-<!--        <span class="progress_text text-white">50%</span>-->
-<!--        <span class="progress_text_bg text-white">50%</span>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--      <div class="q-pa-md flex" style="justify-content: space-between">-->
-<!--        <span>Success orders</span>-->
-<!--        <span>Declined orders</span>-->
-<!--      </div>-->
 </template>
 
 <script lang="ts">

@@ -4,7 +4,7 @@
       <q-page class="page-bg bg-image">
         <div v-bind:class="{'justify-center': $q.screen.md || $q.screen.sm ||$q.screen.xs}"
              class='col-12 col-md-6 flex flex-center' style='justify-content: center; align-items: center'>
-          <q-card class="absolute-center" style='width: 30%; min-width: 30vh; background-color: #ebc09f'>
+          <q-card class="absolute-center signup_card">
             <q-card-section>
               <div class='q-pt-lg'>
                 <div class='col text-h6 ellipsis flex justify-center'>
@@ -99,6 +99,12 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+.signup_card {
+  width: 30%;
+  min-width: 30vh;
+  background-color: #ebc09f
+}
+
 .page-bg {
   background-color: #F4DFC5;
 }
@@ -107,5 +113,18 @@ export default defineComponent({
   background-image: url("src/assets/oreo-wallpaper.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media (max-width: 450px) {
+  .signup_card {
+    width: 97%;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1200px) {
+  .signup_card {
+    width: 70%;
+    height: fit-content;
+  }
 }
 </style>

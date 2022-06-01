@@ -89,7 +89,7 @@ export default store(function (/* { ssrContext } */) {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-argument
           pCost += item.productionCost * item.quantity
         })
-        return pCost.toFixed(2)
+        return +pCost.toFixed(2)
       }
     },
 

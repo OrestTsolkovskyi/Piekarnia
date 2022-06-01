@@ -47,6 +47,7 @@ export default {
   subtotal: 'Razem',
   checkout_btn: 'Zamów',
   clear_cart_btn: 'Wyczyść koszyk',
+  empty_history: 'Nie miałeś jeszcze historii zamówień ',
   removing_confirmation: 'Czy na pewno chcesz usunąć ten produkt?',
   declined_confirmation: 'Czy na pewno chcesz anulować całe zamówienie?',
   cancel_btn: 'Anuluj',
@@ -70,6 +71,6 @@ export default {
   august: 'Sierpień',
   september: 'Wrzesień',
   october: 'Pażdziernik',
-  november: 'Lisopad',
+  november: 'Listopad',
   december: 'Grudzień'
 }

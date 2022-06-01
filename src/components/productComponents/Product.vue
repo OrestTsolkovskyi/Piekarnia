@@ -28,9 +28,6 @@
 
       <p class='product_name text-h5 text-bold q-mt-sm q-mb-xs'>{{ product.name }}</p>
       <p class='product_description q-pa-none'><strong>{{ $t('description') }}</strong> {{ product.description }}</p>
-      <!--              <div class="row">-->
-      <!--            <p class='product_allergy_info'> <strong>{{ $t('allergy_info') }}</strong></p>-->
-      <!--              </div>-->
       <q-btn
         class="q-pa-none text-bold"
         color="brown-6"
@@ -64,15 +61,6 @@ export default defineComponent({
   setup (props) {
     const store = useStore()
 
-    // onMounted(() => {
-    //   store.dispatch('GET_PRODUCT', uuid).then(() => {
-    //     isLoading = false
-    //     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    //   }).catch(() => {
-    //   })
-    // })
-    //
-
     const addItem = () => {
       void store.dispatch('addItem', {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -90,7 +78,6 @@ export default defineComponent({
     }
 
     return {
-      // isLoading,
       removeItem,
       addItem,
       store,
@@ -113,8 +100,6 @@ export default defineComponent({
   max-width: 23%;
   width: 23%;
   background-color: #ebc09fd6;
-  /*align-items: center;*/
-  //padding: 20px;
   margin-bottom: 20px;
 }
 

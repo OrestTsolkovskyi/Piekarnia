@@ -24,7 +24,7 @@
 
     <q-separator vertical></q-separator>
 
-    <q-card-section>
+    <q-card-section style="height: 40%">
       <q-tab-panels
         v-model="tab"
         animated
@@ -89,11 +89,7 @@ export default defineComponent({
         '          \n' +
         '          Est, laudantium mollitia nisi possimus quasi quidem tempora vitae voluptas. Alias asperiores corporis\n' +
         '            culpa, et, eveniet facere ipsa iusto necessitatibus non numquam officia perspiciatis quibusdam recusandae\n' +
-        '            rerum sapiente suscipit unde!\n' +
-        '         \n' +
-        '          Aperiam at blanditiis doloribus eaque, error id magni, maxime necessitatibus obcaecati optio placeat quos\n' +
-        '            sunt velit? Accusantium, alias blanditiis maxime nesciunt perspiciatis quas velit? Architecto dolores itaque\n' +
-        '            maiores nesciunt quia!\n'
+        '            rerum sapiente suscipit unde!\n'
     }
   }
 })

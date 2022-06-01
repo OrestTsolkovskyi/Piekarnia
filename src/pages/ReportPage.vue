@@ -19,7 +19,7 @@
           </q-toolbar>
         </q-header>
 
-        <q-card  class="absolute-center orders_list q-pa-xs" style="max-height: 95%">
+        <q-card  class="absolute-center orders_list q-pa-xs">
           <span class="text-brown-6 text-h4 q-pa-md">{{ $t('admin_reports') }}</span>
           <Report/>
         </q-card>
@@ -89,6 +89,20 @@ export default defineComponent({
   align-items: center;
   background-color: #ebc09f;
   width: 50%;
+  height: 95%;
   flex-flow: column;
+}
+
+@media (max-width: 450px) {
+  .orders_list {
+    width: 95%;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1200px){
+  .orders_list {
+    height: 80%;
+    width: 80%;
+  }
 }
 </style>

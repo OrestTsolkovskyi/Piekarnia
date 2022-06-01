@@ -15,7 +15,7 @@
         round
         @click="addItem()"
         icon="add_shopping_cart"
-        style="top: -1.4rem; right: 0.5rem; transform: translateY(0%);"
+        style="top: -1.4rem; right: 0.05rem; transform: translateY(-50%);"
       />
 
       <q-dialog
@@ -28,7 +28,6 @@
 
         <p class='product_name text-h5 text-bold q-mt-sm q-mb-xs'>{{ product.name }}</p>
         <p class='product_description'> <strong>{{ $t('description') }}</strong> {{ product.description }}</p>
-<!--        <p class='product_allergy_info'> <strong>{{ $t('allergy_info') }}</strong> {{ product.allergyInfo }}</p>-->
       <q-btn
         class="q-pa-none text-bold"
         color="brown-6"
@@ -72,7 +71,6 @@ export default defineComponent({
     }
 
     return {
-      // isLoading,
       addItem,
       store,
       product_details: ref(false),
@@ -94,8 +92,6 @@ export default defineComponent({
   max-width: 23%;
   width: 23%;
   background-color: #ebc09fd6;
-  /*align-items: center;*/
-  //padding: 20px;
   margin-bottom: 20px;
 }
 
@@ -112,7 +108,9 @@ export default defineComponent({
 
 .add_btn:hover{
   background-color: #A0CB82D8;
-}.add_btn:focus-within{
+}
+
+.add_btn:focus-within{
    background-color: #A0CB82D8;
  }
 </style>

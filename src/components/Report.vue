@@ -1,5 +1,5 @@
 <template>
-    <q-card-section>
+    <q-card-section style="height: 95%">
       <span class="text-brown-6">2022</span>
       <q-btn
         color="brown-6"

@@ -2,8 +2,8 @@
   <q-card
     class='products_details text-brown-6'
   >
-    <q-card-section horizontal>
-      <q-card-section class="col-5 flex flex-center" style="width: max-content">
+    <q-card-section horizontal class="info_product">
+      <q-card-section class="col-5 flex flex-center" style="width: fit-content">
         <q-img
           class="rounded-borders image"
           :src='product.image'
@@ -11,7 +11,7 @@
         />
       </q-card-section>
 
-      <q-card-section class="q-pt-xs" style="max-width: 50%">
+      <q-card-section class="q-pt-xs info" style="max-width: 50%">
         <p class='product_name text-h5 text-bold q-mt-sm q-mb-xs'>{{ product.name }}</p>
         <p class='product_description'> <strong>{{ $t('description') }}</strong> {{ product.description }}</p>
         <p class='product_allergy_info'> <strong>{{ $t('allergy_info') }}</strong> {{ product.allergyInfo }}</p>
@@ -38,17 +38,6 @@ export default defineComponent({
   setup (props) {
     const store = useStore()
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-return
-    // const product = computed(() => store.getters.getProduct(props.uuid))
-
-    // onMounted(() => {
-    //   store.dispatch('GET_PRODUCT', uuid).then(() => {
-    //     isLoading = false
-    //     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    //   }).catch(() => {
-    //   })
-    // })
-    //
     const addItem = () => {
       void store.dispatch('addItem', {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -64,7 +53,6 @@ export default defineComponent({
     return {
       removeItem,
       addItem,
-      // product,
       store
     }
   }
@@ -79,10 +67,6 @@ export default defineComponent({
   max-width: fit-content;
   min-width: 40vh;
   height: fit-content;
-  //display: flex;
-  //flex-flow: column wrap;
-  //justify-content: space-around;
-  /*align-items: center;*/
   padding: 20px;
   margin-bottom: 20px;
 }
@@ -92,5 +76,43 @@ export default defineComponent({
   height: 512px;
   min-width: 100px;
   min-height: 100px;
+}
+
+@media (max-width: 450px) {
+  .image {
+    width: 300px;
+    height: 300px;
+    min-width: 100px;
+    min-height: 100px;
+  }
+
+  .products_details {
+    flex-flow: column wrap;
+    padding: 0;
+  }
+
+  .info_product {
+    flex-flow: column;
+    width: fit-content;
+  }
+
+  .info {
+    flex-direction: row;
+    min-width: fit-content;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1200px) {
+  .image {
+    width: 512px;
+    height: 512px;
+    min-width: 100px;
+    min-height: 100px;
+  }
+
+  .products_details {
+    width: 100vh;
+    padding: 0;
+  }
 }
 </style>

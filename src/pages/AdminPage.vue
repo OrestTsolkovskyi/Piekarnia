@@ -11,63 +11,6 @@
 
             <q-space></q-space>
 
-              <q-select
-                hide-dropdown-icon
-                label="Order Status"
-                behavior='menu'
-                class='q-mr-md text-brown-6'
-                dense
-                flat
-                v-model='statusSelect'
-                :options='statusOptions'
-                emit-value
-              >
-                <template v-slot:append>
-                  <q-icon name='view_list'/>
-                </template>
-              </q-select>
-              <q-select
-                hide-dropdown-icon
-                behavior='menu'
-                class='q-mr-md text-brown-6'
-                dense
-                flat
-                v-model='select'
-                :options='options'
-                emit-value
-              >
-                <template v-slot:append>
-                  <q-icon name='av_timer'/>
-                </template>
-              </q-select>
-
-              <div>
-                <q-badge color="brown-6" class="q-mr-sm">
-                  {{ $t('orders_on') }}: {{ day }}
-                </q-badge>
-              </div>
-              <div class="q-pa-sm q-pr-md">
-                <q-btn icon="event" round>
-                  <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
-                    <div class="q-gutter-xs row items-start">
-                      <q-date v-model="day" mask="YYYY-MM-DD" color="primary"/>
-                    </div>
-                  </q-popup-proxy>
-                </q-btn>
-              </div>
-
-              <q-input
-                class='search'
-                dense
-                :label="$t('find_select') "
-                type='search'
-                v-model='search'
-              >
-                <template v-slot:append>
-                  <q-icon name='search'/>
-                </template>
-              </q-input>
-
             <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
               <q-btn
                 style="min-width: 5%"
@@ -89,6 +32,65 @@
               >{{ $t('logout_btn') }}
               </q-btn>
             </div>
+          </q-toolbar>
+          <q-separator color="brown-6" style="height: 0.1rem"/>
+          <q-toolbar style="justify-content: center">
+            <q-select
+              hide-dropdown-icon
+              label="Order Status"
+              behavior='menu'
+              class='q-mr-md text-brown-6'
+              dense
+              flat
+              v-model='statusSelect'
+              :options='statusOptions'
+              emit-value
+            >
+              <template v-slot:append>
+                <q-icon name='view_list'/>
+              </template>
+            </q-select>
+            <q-select
+              hide-dropdown-icon
+              behavior='menu'
+              class='q-mr-md text-brown-6'
+              dense
+              flat
+              v-model='select'
+              :options='options'
+              emit-value
+            >
+              <template v-slot:append>
+                <q-icon name='av_timer'/>
+              </template>
+            </q-select>
+
+            <div>
+              <q-badge color="brown-6" class="q-mr-sm">
+                {{ $t('orders_on') }}: {{ day }}
+              </q-badge>
+            </div>
+            <div class="q-pa-sm q-pr-md">
+              <q-btn icon="event" round>
+                <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
+                  <div class="q-gutter-xs row items-start">
+                    <q-date v-model="day" mask="YYYY-MM-DD" color="primary"/>
+                  </div>
+                </q-popup-proxy>
+              </q-btn>
+            </div>
+
+            <q-input
+              class='search'
+              dense
+              :label="$t('find_select') "
+              type='search'
+              v-model='search'
+            >
+              <template v-slot:append>
+                <q-icon name='search'/>
+              </template>
+            </q-input>
           </q-toolbar>
         </q-header>
 

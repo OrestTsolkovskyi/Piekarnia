@@ -4,8 +4,8 @@
       <q-page class="page-bg bg-image">
         <div v-bind:class="{'justify-center': $q.screen.md || $q.screen.sm ||$q.screen.xs}"
              class='col-12 col-md-6 flex flex-center' style='justify-content: center; align-items: center'>
-          <q-card class="absolute-center" style='width: 35%; min-width: 35vh; background-color: #ebc09f'>
-            <q-card-section>
+          <q-card class="absolute-center login_card">
+            <q-card-section class="login_text">
               <div class='q-pt-lg'>
                 <div class='col text-h6 ellipsis flex justify-center'>
                   <h3 class='text-h3 text-uppercase q-my-none text-weight-regular text-brown-6'>{{ $t('login_text') }}</h3>
@@ -129,6 +129,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.login_card {
+  width: 35%;
+  min-width: 35vh;
+  background-color: #ebc09f
+}
+
 .page-bg {
   background-color: #F4DFC5;
 }
@@ -137,5 +143,17 @@ export default defineComponent({
   background-image: url("src/assets/cookies-wallpapers.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media (max-width: 450px) {
+  .login_card {
+    width: 90%;
+  }
+}
+
+@media (min-width: 450px) and (max-width: 850px) {
+  .login_card {
+    width: 90%;
+  }
 }
 </style>

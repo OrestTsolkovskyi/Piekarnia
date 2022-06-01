@@ -47,6 +47,7 @@ export default {
   subtotal: 'Subtotal',
   checkout_btn: 'Checkout',
   clear_cart_btn: 'Clear cart',
+  empty_history: 'You didn\'t have orders history yet',
   removing_confirmation: 'Are you sure, you want remove this product?',
   declined_confirmation: 'Are you sure, you want to decline whole order?',
   cancel_btn: 'Cancel',

@@ -3,10 +3,9 @@
     class="absolute-center text-brown-6 q-pa-md orders_scroll"
     :visible="visible"
   >
-    <q-card-section horizontal>
-      <q-card-actions class="q-pa-md">
+    <q-card-section class="q-pa-none">
+      <q-toolbar class="q-pa-none">
         <q-tabs
-          vertical
           v-model="tab"
           dense
           align="center"
@@ -16,18 +15,15 @@
           <br>
           <q-tab :ripple="{ color: 'orange' }" name="History" icon="history" :label="$t('history')"/>
         </q-tabs>
-      </q-card-actions>
+      </q-toolbar>
 
-      <q-separator vertical></q-separator>
+      <q-separator></q-separator>
 
-      <q-card-section>
+      <q-card-section class="orders_tabs">
           <q-tab-panels
             v-model="tab"
             animated
             swipeable
-            vertical
-            transition-prev="jump-up"
-            transition-next="jump-up"
           >
             <q-tab-panel name="Orders" style="background-color: #ebc09f; min-width: 40vh">
                 <Orders
@@ -60,9 +56,6 @@ export default defineComponent({
     return {
       tab: ref('Orders'),
       visible: ref(true)
-      // Orders: ref(false),
-      // History: ref(false),
-      // drawer: ref(false),
     }
   }
 })
@@ -81,19 +74,22 @@ export default defineComponent({
   min-height: 60vh;
   //max-height: 60vh
 }
-</style>
 
-<!--        <q-btn-->
-<!--          icon="receipt_long"-->
-<!--          flat-->
-<!--          rounded-->
-<!--          @click="showOrders"-->
-<!--          label="Orders"/>-->
-<!--        <br>-->
-<!--        <q-btn-->
-<!--          icon="history"-->
-<!--          flat-->
-<!--          rounded-->
-<!--          @click="showHistory"-->
-<!--          label="History"-->
-<!--        />-->
+@media (min-width: 500px) and (max-width: 1200px) {
+  .orders_scroll {
+    min-width: 70%;
+    width: 70%;
+  }
+}
+
+@media (max-width: 450px) {
+  .orders_scroll {
+    width: 99%;
+    min-width: 90%;
+  }
+
+  .orders_tabs {
+    flex-flow: row wrap;
+  }
+}
+</style>

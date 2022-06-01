@@ -5,10 +5,9 @@ const token = localStorage.getItem('user-token')
 
 const _instance = axios.create({
   baseURL: 'http://Localhost:8080/',
-  // timeout: 1000,
   headers: {
-    ...token && { Authorization: token }
-    // ...adminToken && { Authorization: adminToken }
+    ...token && { Authorization: token },
+    'Content-Language': localStorage.getItem('lang') || 'en-US'
   }
 })
 

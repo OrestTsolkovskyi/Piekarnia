@@ -52,7 +52,7 @@
         </q-header>
         <q-tab-panels v-model="tab" animated class="page-bg tab-bg-image">
           <q-tab-panel name="Home">
-            <div class="q-pa-md">
+            <div class="q-pa-md carousel_div">
               <q-carousel
                 animated
                 v-model="slide"
@@ -157,10 +157,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import Footer from 'components/Footer.vue'
+import axios from 'src/plugins/axios.config'
 
 export default defineComponent({
   name: 'MainLayout',
@@ -168,7 +169,11 @@ export default defineComponent({
   components: { Footer },
   setup () {
     const { locale } = useI18n({ useScope: 'global' })
-
+    watch(locale, (lang) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      axios.defaults.headers['Content-Language'] = lang
+      localStorage.setItem('lang', lang)
+    })
     const router = useRouter()
 
     const Login = () => {
@@ -214,26 +219,6 @@ export default defineComponent({
   background-size: contain;
 }
 
-//@media (max-width: 1200px) {
-//  .photos {
-//    display: flex;
-//    //flex-flow: row wrap;
-//    //justify-content: space-around;
-//    //align-items: center;
-//    //margin: 0 auto;
-//    //padding-left: 0;
-//    //flex- line-height:0;
-//    line-height:0;
-//    -webkit-column-count:4; /* split it into 5 columns */
-//    -moz-column-count:4;
-//    column-count:4;
-//    margin-bottom: 3rem;
-//    //flex-grow: 1;
-//    //justify-content: space-between;
-//    //align-items: center;
-//  }
-//}
-
 .photos_container {
   display: flex;
   flex-wrap: wrap;
@@ -255,5 +240,15 @@ export default defineComponent({
 
 .carousel{
   max-height: 40%;
+}
+
+@media (max-width: 450px) {
+  .carousel_div{
+    height: 20% ;
+  }
+
+  .carousel{
+    height: 20vh;
+  }
 }
 </style>

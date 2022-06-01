@@ -36,13 +36,13 @@
               </div>
             </q-slide-transition>
             <div class="q-pt-md" v-for="order in user.user_orders" :key="order.order_uuid">
-              <q-card-section horizontal class="q-pt-md" v-for="product in order.products" :key="product.uuid">
+              <q-card-section horizontal class="q-pt-md product_info" v-for="product in order.products" :key="product.uuid">
                 <q-img
                   class="rounded-borders image q-ml-md"
                   :src='product.image'
                   alt='img'
                   width="64px" height="64px"
-                  style="border-radius: 50%"
+                  style="border-radius: 50%; min-width: 64px; min-height: 64px"
                 />
                 <q-space/>
                 <p class='product_name text-h5 text-brown-6 q-pa-md'>{{ product.name }}</p>
@@ -51,13 +51,13 @@
                   <span class="cart-quantity text-brown-6 q-pa-md">{{ product.quantity }}</span>
                   <hr/>
                 </div>
-                <div class="q-pa-xs-xs q-ml-md">
+                <div class="q-pa-xs-xs q-ml-md remove_btn">
                   <q-btn color="red" flat round class="q-pa-md" icon="cancel"
                          @click="openRemoveDialog(user.user_uuid, order.order_uuid, product.uuid)"></q-btn>
                 </div>
               </q-card-section>
 
-              <div class="q-pa-sm row" style="justify-content: space-evenly">
+              <div class="q-pa-sm row" style="justify-content: space-around">
                 <p class="text-brown-6"><strong>{{ $t('production_cost') }}:</strong> {{ order.order_production_cost }}</p>
                 <p class="text-brown-6"><strong>{{ $t('payed') }}:</strong> {{ order.order_total }}</p>
                 <p class="text-brown-6"><strong>{{ $t('pick_up_time') }}:</strong> {{ order.date }}</p>
@@ -154,7 +154,6 @@ export default defineComponent({
     }).catch(err => {
       return Promise.reject(err)
     })
-    console.log(progress.value)
     // eslint-disable-next-line
     const userOrdersStat = (user_uuid: string) => {
       const stat = progress.value.get(user_uuid)
@@ -211,7 +210,6 @@ export default defineComponent({
       })
     }
     return {
-      // progressData,
       progress,
       userOrdersStat,
       remove,
@@ -249,5 +247,23 @@ export default defineComponent({
 
 .person_uuid {
   font-family: "Roboto", "-apple-system", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@media (max-width: 450px) {
+  .orders_list {
+    width: 98%;
+  }
+  .remove_btn {
+    position: absolute;
+    padding-top: 35px;
+    padding-left: 25px;
+  }
+}
+
+@media (min-width: 500px) and (max-width: 1200px) {
+  .orders_list {
+    min-width: 60vh;
+    width: 70%;
+  }
 }
 </style>
