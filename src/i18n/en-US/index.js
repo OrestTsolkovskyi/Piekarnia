@@ -74,8 +74,21 @@ export default {
   november: 'November',
   december: 'December',
   'All Shifts': 'All Shifts',
+  '1 shift': '1 shift',
+  '2 shift': '2 shift',
+  '3 shift': '3 shift',
   All: 'All',
   'Ready To Go': 'Ready To Go',
   Preparing: 'Preparing',
-  Declined: 'Declined'
+  Declined: 'Declined',
+  'Thank you, You order placed successfully': 'Thank you, You order placed successfully',
+  'You are logged out': 'You are logged out',
+  'You are logged': 'You are logged',
+  'Incorrect data': 'Incorrect data',
+  'Not enough symbols. Must be at least 8': 'Not enough symbols. Must be at least 8',
+  '! User not found ! Need to be logged/signed up': '! User not found ! Need to be logged/signed up',
+  'Please write your full name': 'Please write your full name',
+  'Incorrect data (nickname)': 'Incorrect data (nickname)',
+  'Passwords are different': 'Passwords are different',
+  'User created successfully': 'User created successfully'
 }

@@ -62,6 +62,7 @@ import { useStore } from 'src/store'
 import swal from 'sweetalert'
 import axios from 'src/plugins/axios.config'
 import TimePicker from 'components/cartComponents/TimePicker.vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   props: ['product', 'uuid'],
@@ -73,6 +74,8 @@ export default defineComponent({
   },
 
   setup (props) {
+    // eslint-disable-next-line
+    const { t } = useI18n()
     const store = useStore()
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     const cart = computed(() => store.state.cart)
@@ -136,7 +139,7 @@ export default defineComponent({
     }
 
     const checkout = () => {
-      void swal('Thank you', 'You order placed successfully').then(
+      void swal(t('Thank you, You order placed successfully')).then(
         clearCart
       )
       axios.post('api/addOrders', {
@@ -158,6 +161,7 @@ export default defineComponent({
     }
 
     return {
+      t,
       modelValue,
       onDateChange,
       confirm: ref(false),

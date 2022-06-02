@@ -52,12 +52,15 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'src/store'
 import Cart from 'components/cartComponents/Cart.vue'
 import OrdersInfo from 'components/ordersComponents/OrdersInfo.vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   props: ['product', 'uuid'],
   name: 'Header',
   components: { OrdersInfo, Cart },
   setup () {
+    // eslint-disable-next-line
+    const { t } = useI18n()
     const $q = useQuasar()
 
     const router = useRouter()
@@ -89,11 +92,12 @@ export default defineComponent({
         $q.notify({
           position: 'top',
           type: 'negative',
-          message: 'You are logged out'
+          message: t('You are logged out')
         })
       })
     }
     return {
+      t,
       count,
       getUser,
       goTo,

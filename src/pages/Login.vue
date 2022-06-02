@@ -40,10 +40,13 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'src/store'
 import axios from 'src/plugins/axios.config'
 import user from '../store/modules/user'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   name: 'Login',
   setup () {
+    // eslint-disable-next-line
+    const { t } = useI18n()
     const $q = useQuasar()
     const router = useRouter()
 
@@ -56,13 +59,13 @@ export default defineComponent({
       if (username.value === '') {
         $q.notify({
           type: 'negative',
-          message: 'Incorrect data'
+          message: t('Incorrect data')
         })
       }
       if (password.value.length < 1) {
         $q.notify({
           type: 'negative',
-          message: 'Not enough symbols. Must be at least 8'
+          message: t('Not enough symbols. Must be at least 8')
         })
       } else {
         void axios.post('api/login', {
@@ -79,7 +82,7 @@ export default defineComponent({
             $q.notify({
               position: 'top',
               type: 'positive',
-              message: ' You are logged '
+              message: t('You are logged')
             })
           } else {
             if (data.isManager) {
@@ -92,7 +95,7 @@ export default defineComponent({
               $q.notify({
                 position: 'top',
                 type: 'positive',
-                message: ' You are logged '
+                message: t('You are logged')
               })
             } else {
               void store.dispatch('user/setUser', data)
@@ -104,21 +107,21 @@ export default defineComponent({
               $q.notify({
                 position: 'top',
                 type: 'positive',
-                message: ' You are logged '
+                message: t('You are logged')
               })
             }
           }
         }).catch(() => {
           $q.notify({
             type: 'negative',
-            message: '! User not found !' +
-              ' Need to be logged '
+            message: t('! User not found ! Need to be logged/signed up')
           })
         })
       }
     }
 
     return {
+      t,
       user,
       username,
       password,

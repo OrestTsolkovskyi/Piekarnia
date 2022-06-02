@@ -38,9 +38,12 @@ import { ref, reactive, defineComponent } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
 import axios from 'src/plugins/axios.config'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   setup () {
+    // eslint-disable-next-line
+    const { t } = useI18n()
     const data = reactive({
       name: ref(''),
       username: ref(''),
@@ -56,25 +59,25 @@ export default defineComponent({
         if (data.name === '') {
           $q.notify({
             type: 'negative',
-            message: 'Please write your full name'
+            message: t('Please write your full name')
           })
         }
         if (data.username === '') {
           $q.notify({
             type: 'negative',
-            message: 'Incorrect data (nickname)'
+            message: t('Incorrect data (nickname)')
           })
         }
         if (data.password.length < 8) {
           $q.notify({
             type: 'negative',
-            message: 'Not enough symbols. Must be at least 8'
+            message: t('Not enough symbols. Must be at least 8')
           })
         }
         if (data.repeatPassword.length < 8 || data.repeatPassword !== data.password) {
           $q.notify({
             type: 'negative',
-            message: 'Passwords are different'
+            message: t('Passwords are different')
           })
         } else {
           await axios.post('api/signup', {
@@ -84,13 +87,14 @@ export default defineComponent({
           })
           $q.notify({
             type: 'positive',
-            message: ' User created successfully '
+            message: t('User created successfully')
           })
           await router.push('/login')
         }
       }
 
     return {
+      t,
       data,
       signUp
     }

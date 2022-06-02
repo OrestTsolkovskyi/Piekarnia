@@ -74,8 +74,21 @@ export default {
   november: 'Listopad',
   december: 'Grudzień',
   'All Shifts': 'Wszystkie zmiany',
+  '1 shift': '1 zmiana',
+  '2 shift': '2 zmiana',
+  '3 shift': '3 zmiana',
   All: 'Wszystkie',
   'Ready To Go': 'Gotowy Do Odboiru',
   Preparing: 'Gotuje się',
-  Declined: 'Anolowano'
+  Declined: 'Anolowano',
+  'Thank you, You order placed successfully': 'Dziękujemy, twoje zamówienie zostło złożone',
+  'You are logged out': 'Jesteś wylogowany',
+  'You are logged': 'Jesteś zalogowany',
+  'Incorrect data': 'Niepoprawne dane',
+  'Not enough symbols. Must be at least 8': 'Zamało symboli. Powinno być co najmniej 8',
+  '! User not found ! Need to be logged/signed up': '! Nie ma takiego usera ! Powinno się załogować/zarejestrować',
+  'Please write your full name': 'Prosze podać pełne imię i nazwisko',
+  'Incorrect data (nickname)': 'Niepoprane dane(nickname)',
+  'Passwords are different': 'Hasła się różnią',
+  'User created successfully': 'Użytkownik stworzony pomyślnie'
 }

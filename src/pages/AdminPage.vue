@@ -129,13 +129,13 @@ export default defineComponent({
       label: ref(t('All Shifts')),
       value: 'All Shifts'
     }, {
-      label: '1',
+      label: ref(t('1 shift')),
       value: '1'
     }, {
-      label: '2',
+      label: ref(t('2 shift')),
       value: '2'
     }, {
-      label: '3',
+      label: ref(t('3 shift')),
       value: '3'
     }
     ]
@@ -263,7 +263,7 @@ export default defineComponent({
         $q.notify({
           position: 'top',
           type: 'negative',
-          message: 'You are logged out'
+          message: t('You are logged out')
         })
       })
     }
