@@ -90,5 +90,8 @@ export default {
   'Please write your full name': 'Prosze podać pełne imię i nazwisko',
   'Incorrect data (nickname)': 'Niepoprane dane(nickname)',
   'Passwords are different': 'Hasła się różnią',
-  'User created successfully': 'Użytkownik stworzony pomyślnie'
+  'User created successfully': 'Użytkownik stworzony pomyślnie',
+  shift1: 'Zmiana 1',
+  shift2: 'Zmiana 2',
+  shift3: 'Zmiana 3'
 }

@@ -97,6 +97,19 @@ export default defineComponent({
                 type: 'positive',
                 message: t('You are logged')
               })
+            }
+            if (data.isChef) {
+              void store.dispatch('chef/setChef', data)
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              axios.defaults.headers.common.Authorization = data.token
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+              localStorage.setItem('user-token', data.token)
+              void router.push('/chefPage')
+              $q.notify({
+                position: 'top',
+                type: 'positive',
+                message: t('You are logged')
+              })
             } else {
               void store.dispatch('user/setUser', data)
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

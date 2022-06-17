@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page class="page-bg bg-image">
         <q-header elevated class="text-brown-6">
-          <q-toolbar>
+          <q-toolbar style="background: #e7b181">
 
             <q-toolbar-title style="min-width: fit-content">
               Piekarnia
@@ -13,18 +13,16 @@
 
             <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
               <q-btn
-                style="min-width: 5%"
+                style="min-width: 5%; color: #e7b181"
                 rounded
-                color="primary"
                 text-color="brown-6"
                 @click="report"
               >{{ $t('admin_reports') }}
               </q-btn>
 
               <q-btn
-                style="min-width: 5%"
+                style="min-width: 5%; color: #e7b181"
                 text-color="brown-6"
-                color="primary"
                 class='logout'
                 @click='Logout'
                 rounded
@@ -180,7 +178,7 @@ export default defineComponent({
 
     const filteredALLOrders = computed(() => {
       function filteredByShift () {
-        if (select.value === undefined || select.value === 'All Shift') {
+        if (select.value === undefined || select.value === 'All Shifts') {
           // eslint-disable-next-line
             return allOrders.value
         } else {
@@ -207,20 +205,21 @@ export default defineComponent({
           // eslint-disable-next-line
           return filteredByShift()
         } else {
+          debugger
           // eslint-disable-next-line
-          const ordersDayFilter = filteredByShift().reduce((memo: any[], order: any) => {
+          const ordersDayFilter = filteredByShift().reduce((memory: any[], order: any) => {
             // eslint-disable-next-line
-            const filteredOrders = order.user_orders.filter(({ date }: { date: string }) => {
+            const filteredByDayOrders = order.user_orders.filter(({ date }: { date: string }) => {
               // eslint-disable-next-line
-              const dateObj = new Date(date)
+              const dateObject = new Date(date)
               // eslint-disable-next-line
-              const result = dateObj.getFullYear() + '-' + String(dateObj.getMonth() + 1).padStart(2, '0') + '-' + dateObj.getDate()
+              const result = dateObject.getFullYear() + '-' + String(dateObject.getMonth() + 1).padStart(2, '0') + '-' + dateObject.getDate()
               return result === day.value
             })
             // eslint-disable-next-line
-            filteredOrders.length && memo.push({ ...order, ...{ user_orders: filteredOrders } })
+            filteredByDayOrders.length && memory.push({ ...order, ...{ user_orders: filteredByDayOrders } })
             // eslint-disable-next-line
-            return memo
+            return memory
           }, [])
           // eslint-disable-next-line
           return ordersDayFilter

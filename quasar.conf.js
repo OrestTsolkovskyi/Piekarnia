@@ -95,6 +95,10 @@ module.exports = configure(function (ctx) {
           pathRewrite: {
             '^/api': ''
           }
+        },
+        '/gallery': {
+          target: 'http://localhost:3333',
+          changeOrigin: true
         }
       },
       host: 'localhost'

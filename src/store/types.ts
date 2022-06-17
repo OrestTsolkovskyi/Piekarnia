@@ -86,3 +86,10 @@ export interface Manager {
   password: string,
   token: number
 }
+
+export interface Chef {
+  name: string,
+  username: string,
+  password: string,
+  token: number
+}

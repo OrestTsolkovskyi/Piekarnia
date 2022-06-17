@@ -143,6 +143,8 @@ export default defineComponent({
         clearCart
       )
       axios.post('api/addOrders', {
+        product_status: 'Ordered',
+        sell_status: 'Waiting',
         order_uuid: orderUuid(),
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         date: date.value,

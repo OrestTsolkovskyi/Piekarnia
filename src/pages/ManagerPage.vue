@@ -11,7 +11,20 @@
 
             <q-space></q-space>
 
+            <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
+              <q-btn
+                class='logout'
+                @click='Logout'
+                rounded
+                push
+                style="min-width: fit-content"
+              >{{ $t('logout_btn') }}
+              </q-btn>
+            </div>
+          </q-toolbar>
+          <q-toolbar style="justify-content: center">
             <q-select
+              hide-dropdown-icon
               label="Order Status"
               behavior='menu'
               class='q-mr-md text-brown-6'
@@ -20,12 +33,14 @@
               v-model='statusSelect'
               :options='statusOptions'
               emit-value
+              hide-selected
             >
               <template v-slot:append>
                 <q-icon name='view_list'/>
               </template>
             </q-select>
             <q-select
+              hide-dropdown-icon
               behavior='menu'
               class='q-mr-md text-brown-6'
               dense
@@ -40,11 +55,11 @@
             </q-select>
 
             <div>
-              <q-badge color="brown-6">
+              <q-badge color="brown-6" class="q-mr-sm">
                 {{ $t('orders_on') }}: {{ day }}
               </q-badge>
             </div>
-            <div class="q-pa-sm">
+            <div class="q-pa-sm q-pr-md">
               <q-btn icon="event" round>
                 <q-popup-proxy class=" bg-transparent" cover transition-show="scale" transition-hide="scale">
                   <div class="q-gutter-xs row items-start">
@@ -55,7 +70,6 @@
             </div>
 
             <q-input
-              style="min-width: 50px"
               class='search'
               dense
               :label="$t('find_select') "
@@ -66,17 +80,6 @@
                 <q-icon name='search'/>
               </template>
             </q-input>
-
-            <div class="q-pa-sm q-gutter-sm" style="min-width: fit-content">
-              <q-btn
-                class='logout'
-                @click='Logout'
-                rounded
-                push
-                style="min-width: fit-content"
-              >{{ $t('logout_btn') }}
-              </q-btn>
-            </div>
           </q-toolbar>
         </q-header>
 

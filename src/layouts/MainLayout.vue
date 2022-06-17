@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page class="page-bg bg-image">
         <q-header elevated class="text-brown-6">
-          <q-toolbar>
+          <q-toolbar class="text-brown-6" style="background: #e7b181">
 
             <q-toolbar-title>
               Piekarnia
@@ -70,25 +70,25 @@
                 <q-carousel-slide :name="1" class="column no-wrap bg-primary">
                 <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
                   <q-img class="rounded-borders col-6 full-height" src="~assets/apple-pie.jpg" />
-                  <q-img class="rounded-borders col-6 full-height" src="~assets/apple-pie.jpg" />
+                  <q-img class="rounded-borders col-6 full-height" src="~assets/raspberry-cake.jpg" />
                 </div>
                 </q-carousel-slide>
                 <q-carousel-slide :name="2" class="column no-wrap bg-primary">
                 <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
                   <q-img class="rounded-borders col-6 full-height" src="~assets/raspberry-cake.jpg" />
-                  <q-img class="rounded-borders col-6 full-height" src="~assets/raspberry-cake.jpg" />
+                  <q-img class="rounded-borders col-6 full-height" src="~assets/apple-pie.jpg" />
                 </div>
                 </q-carousel-slide>
                 <q-carousel-slide :name="3" class="column no-wrap bg-primary">
                 <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
                   <q-img class="rounded-borders col-6 full-height" src="~assets/oreo-cake.jpg" />
-                  <q-img class="rounded-borders col-6 full-height" src="~assets/oreo-cake.jpg" />
+                  <q-img class="rounded-borders col-6 full-height" src="~assets/tiramisu-cake.jpg" />
                 </div>
                 </q-carousel-slide>
                 <q-carousel-slide :name="4" class="column no-wrap bg-primary">
                 <div class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap">
                   <q-img class="rounded-borders col-6 full-height" src="~assets/tiramisu-cake.jpg" />
-                  <q-img class="rounded-borders col-6 full-height" src="~assets/tiramisu-cake.jpg" />
+                  <q-img class="rounded-borders col-6 full-height" src="~assets/oreo-cake.jpg" />
                 </div>
                 </q-carousel-slide>
               </q-carousel>

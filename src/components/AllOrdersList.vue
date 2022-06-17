@@ -5,15 +5,6 @@
     <div style="position: center">
       <span class="text-brown-6 text-h4 q-pa-md">All Orders</span>
       <q-card-section class="no-wrap">
-        <q-btn
-          class="q-mb-md text-bold"
-          color="brown-6"
-          flat
-          dense
-          @click="expanded = !expanded"
-        >{{ $t('admin_orders_list') }}
-        </q-btn>
-        <div v-show="expanded">
           <div v-for="user in filteredAllOrders"
                :key="user.user_uuid">
           <span class="text-brown-6 text-h6" @click="expandedInfo = !expandedInfo">
@@ -50,6 +41,7 @@
                 <div class="q-pa-md">
                   <span class="cart-quantity text-brown-6 q-pa-md">{{ product.quantity }}</span>
                   <hr/>
+                  <span class="cart-quantity text-brown-6 q-pa-none">{{ product.product_status }} / {{ product.sell_status }}</span>
                 </div>
                 <div class="q-pa-xs-xs q-ml-md remove_btn">
                   <q-btn color="red" flat round class="q-pa-md" icon="cancel"
@@ -118,7 +110,6 @@
               </q-card-actions>
             </q-card>
           </q-dialog>
-        </div>
       </q-card-section>
       <div class="flex flex-center" style="text-align: center; flex-flow: column wrap">
         <q-img src="../assets/png/files.png" style="width: 50%"></q-img>

@@ -33,6 +33,8 @@
 import { defineComponent } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
+import { useStore } from 'src/store'
+import { useI18n } from 'vue-i18n'
 import Report from 'components/Report.vue'
 
 export default defineComponent({
@@ -40,24 +42,28 @@ export default defineComponent({
 
   components: { Report },
   setup () {
+    // eslint-disable-next-line
+    const { t } = useI18n()
     const $q = useQuasar()
+    const store = useStore()
 
     const router = useRouter()
 
     const main = () => router.push('/adminPage')
 
     const Logout = () => {
-      // void store.dispatch('user/logout').then(() => {
-      void router.push('/login_admin')
-      $q.notify({
-        position: 'top',
-        type: 'negative',
-        message: 'You are logged out'
+      void store.dispatch('admin/logout').then(() => {
+        void router.push('/')
+        $q.notify({
+          position: 'top',
+          type: 'negative',
+          message: t('You are logged out')
+        })
       })
-      // })
     }
 
     return {
+      t,
       main,
       Logout
     }
@@ -89,7 +95,7 @@ export default defineComponent({
   align-items: center;
   background-color: #ebc09f;
   width: 50%;
-  height: 95%;
+  height: 98%;
   flex-flow: column;
 }
 

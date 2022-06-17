@@ -11,6 +11,7 @@ import axios from 'src/plugins/axios.config'
 import user from 'src/store/modules/user'
 import admin from 'src/store/modules/admin'
 import manager from 'src/store/modules/manager'
+import chef from 'src/store/modules/chef'
 
 /*
  * If not building with SSR mode, you can
@@ -48,7 +49,8 @@ export default store(function (/* { ssrContext } */) {
       // example
       user,
       admin,
-      manager
+      manager,
+      chef
     },
 
     state: {
@@ -57,7 +59,9 @@ export default store(function (/* { ssrContext } */) {
       orders: [] as Array<Order>,
       cart: [],
       allOrders: [] as Array<AllOrders>,
-      date: ''
+      date: '',
+      chefAllOrders: {},
+      report: []
     },
 
     getters: {
@@ -150,6 +154,17 @@ export default store(function (/* { ssrContext } */) {
       getAllOrders: async function ({ commit }) {
         const allOrders = await axios.get('api/allOrders')
         commit('SET_ALL_ORDERS', allOrders.data)
+      },
+
+      getReport: async function ({ commit }, date) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const report = await axios.get('api/report', { params: { date } })
+        commit('SET_REPORT', report.data)
+      },
+
+      getChefAllOrders: async function ({ commit }) {
+        const chefAllOrders = await axios.get('api/chefAllOrders')
+        commit('SET_CHEF_ALL_ORDERS', chefAllOrders.data)
       },
 
       setDate ({ commit }, date) {
@@ -274,6 +289,16 @@ export default store(function (/* { ssrContext } */) {
       SET_ALL_ORDERS (state, allOrders) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         state.allOrders = allOrders
+      },
+
+      SET_REPORT (state, report) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        state.report = report
+      },
+
+      SET_CHEF_ALL_ORDERS (state, chefAllOrders) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        state.chefAllOrders = chefAllOrders
       },
 
       SET_DATE (state, date) {
