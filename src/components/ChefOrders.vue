@@ -5,12 +5,12 @@
     <div style="position: center">
       <span class="text-brown-6 text-h4 q-pa-md">All Orders</span>
       <q-card-section class="no-wrap">
-        <div v-for="(orders, ordersDate) in ChefAllOrders"
+        <div v-for="(orders, ordersDate) in filteredChefOrders"
              :key="ordersDate">
           <p class="text-brown-6 text-h6 text-bold q-pa-md">{{ ordersDate }}</p>
           <div class="q-pt-md" v-for="(shift, shiftKey) in orders" :key="shift">
             <span class='text-brown-6 text-h6 q-pa-md text-bold'>{{ $t(shiftKey) }}</span>
-            <q-card-section class="q-pt-md product_info" v-for="products in shift" :key="products">
+            <q-card-section class="q-pt-md product_info" v-for="product in shift" :key="product">
               <q-card-section horizontal>
               <div class="column">
               <q-btn
@@ -19,23 +19,23 @@
                 flat
                 dense
                 @click="expanded = !expanded"
-              >{{ products.name }}
+              >{{ product.name }}
               </q-btn>
               <q-slide-transition>
                 <div v-show="expanded" class="text-brown-6 product_uuid">
-                  {{ products.uuid }}
+                  {{ product.uuid }}
                 </div>
               </q-slide-transition>
               </div>
               <q-space></q-space>
-              <p class='text-brown-6 q-pa-md'>{{ products.quantity }}</p>
-              <p class='text-brown-6 q-pa-md'>{{ products.product_status }}</p>
+              <p class='text-brown-6 q-pa-md'>{{ product.quantity }}</p>
+              <p class='text-brown-6 q-pa-md'>{{ product.product_status }}</p>
               </q-card-section>
               <q-card-section horizontal class="q-pl-sm justify-center">
                 <div class="q-gutter-sm">
-                  <q-radio v-model="shape" color="red" class="text-brown-6" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Ordered" label="Ordered" />
-                  <q-radio v-model="shape" color="orange" class="text-brown-6" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Cooking" label="Cooking" />
-                  <q-radio v-model="shape" color="green" class="text-brown-6" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Done" label="Done" />
+                  <q-radio :model-value="product.product_status" @update:model-value="setNewStatus(ordersDate, shiftKey, product, $event)" color="red" class="text-brown-6" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Ordered" label="Ordered" />
+                  <q-radio :model-value="product.product_status" @update:model-value="setNewStatus(ordersDate, shiftKey, product, $event)" color="orange" class="text-brown-6" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Cooking" label="Cooking" />
+                  <q-radio :model-value="product.product_status" @update:model-value="setNewStatus(ordersDate, shiftKey, product, $event)" color="green" class="text-brown-6" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="Done" label="Done" />
                 </div>
               </q-card-section>
             </q-card-section>
@@ -54,6 +54,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useStore } from 'src/store'
 // import { useStore } from 'src/store'
 // import axios from 'axios'
 
@@ -62,7 +63,19 @@ export default defineComponent({
   props: ['uuid', 'filteredChefOrders', 'ChefAllOrders'],
 
   setup () {
+    const store = useStore()
+
+    const setNewStatus = (ordersDate: string, shiftKey: string, order: object, status: string) => {
+      void store.dispatch('setNewStatus', {
+        ordersDate,
+        shiftKey,
+        order,
+        status
+      })
+    }
+
     return {
+      setNewStatus,
       shape: ref('Ordered'),
       expanded: ref(false),
       // progress,

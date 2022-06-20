@@ -55,7 +55,8 @@
           </q-toolbar>
         </q-header>
 
-        <ChefOrders :ChefAllOrders="ChefAllOrders"/>
+        <ChefOrders :filteredChefOrders="filteredChefOrders"/>
+<!--        <ChefOrders :ChefAllOrders="ChefAllOrders"/>-->
 
         <q-footer/>
       </q-page>
@@ -64,6 +65,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable */
 import { computed, defineComponent, onMounted, ref } from 'vue'
 import { useQuasar } from 'quasar'
 import { useRouter } from 'vue-router'
@@ -77,7 +79,6 @@ export default defineComponent({
 
   components: { ChefOrders },
   setup () {
-    // eslint-disable-next-line
     const { t } = useI18n()
     const $q = useQuasar()
     const store = useStore()
@@ -105,32 +106,39 @@ export default defineComponent({
       function filteredByDay () {
         if (!day.value) {
           // eslint-disable-next-line
-          return ChefAllOrders
-        } else {
+          return ChefAllOrders.value
+        }
+        // eslint-disable-next-line
+        return ChefAllOrders.value[day.value] && {
           // eslint-disable-next-line
-          return ChefAllOrders.value.reduce((memory: any[], order: any) => {
-            // eslint-disable-next-line
-            const filteredByDayOrders = order.user_orders.filter(({ date }: { date: string }) => {
-              // eslint-disable-next-line
-              const dateObject = new Date(date)
-              // eslint-disable-next-line
-              const result = dateObject.getFullYear() + '-' + String(dateObject.getMonth() + 1).padStart(2, '0') + '-' + dateObject.getDate()
-              return result === day.value
-            })
-            // eslint-disable-next-line
-            filteredByDayOrders.length && memory.push({ ...order, ...{ user_orders: filteredByDayOrders } })
-            // eslint-disable-next-line
-            return memory
-          }, [])
+          [day.value]: ChefAllOrders.value[day.value]
         }
       }
 
       function filterBySearchInput () {
         // eslint-disable-next-line
-        if (search.value) {
+        if (search.value && filteredByDay()) {
           // eslint-disable-next-line
-          return filteredByDay().filter((product: { name: string }) => product.name.toLowerCase()?.includes(search.value.toLowerCase()))
+          const result: {[key:string]: any} = {}
+          // eslint-disable-next-line
+          for (const [dayKey, dayValue] of Object.entries(filteredByDay())) {
+            const filteredShifts: {[key:string]: string} = {}
+
+            for (const [shiftKey, shiftValue] of Object.entries(dayValue as any)) {
+              const filteredShift = (shiftValue as any).filter((product: { name: string }) => product.name.toLowerCase()?.includes(search.value.toLowerCase()))
+              if (filteredShift.length) {
+                filteredShifts[shiftKey] = filteredShift
+              }
+            }
+
+            if (Object.keys(filteredShifts).length) {
+              result[dayKey] = filteredShifts
+            }
+          }
+          return result
         }
+        // eslint-disable-next-line
+        return filteredByDay()
       }
       // eslint-disable-next-line
       return filterBySearchInput()

@@ -176,6 +176,13 @@ export default store(function (/* { ssrContext } */) {
         commit('SET_STATUS', { user, order, status })
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         void axios.post('api/changeStatus', { user, order, status })
+      },
+
+      setNewStatus ({ commit }, { ordersDate, shiftKey, order, status }) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        commit('SET_NEW_STATUS', { ordersDate, shiftKey, order, status })
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        void axios.post('api/changeKitchenOrderStatus', { ordersDate, shiftKey, order, status })
       }
     },
 
@@ -318,6 +325,15 @@ export default store(function (/* { ssrContext } */) {
 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
         item.status = status
+      },
+
+      SET_NEW_STATUS (state, { ordersDate, shiftKey, order, status }) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
+        const item = state.chefAllOrders[ordersDate][shiftKey].find((_order) => _order === order)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
+        item.product_status = status
       }
     },
 
